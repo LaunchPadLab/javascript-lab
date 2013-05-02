@@ -1,0 +1,56 @@
+div.center {
+	margin: 0 auto;	
+	width: 337px;
+	text-align: center;
+	padding: 0px;
+}
+
+div.display {
+   border: 1px solid #AAA;
+   padding: 20px;
+   font-size: 20px;
+   width: 295px;
+   text-align: right;
+   height: 25px;
+}
+
+ul {
+   margin: 0; 
+   padding:0;
+   overflow: hidden;
+   border: 1px solid #CCC;
+   width: 335px;
+}
+
+li {
+   float: left;
+   border: 1px solid #CCC;
+   background-color: #555;
+   color: White;
+   padding: 20px;
+   width: 25px;
+   height: 20px;
+   text-align: center;
+	list-style-type: none;
+	cursor: pointer;
+}
+
+li:hover {
+	background-color: red;
+}
+
+/**
+5.12
+6.12
+0.12
+96.12
+6.65
+6.6*
+6.634
+
+Works normally:      1.65, 2.65, 3.65, 8.65, 9.65, 10.65
+Innaccurate decimal: 4.65, 5.65, 6.65, 7.65, 
+
+Works normally:      1.12, 2.12, 3.12, 8.12, 9.12, 10.12
+Innaccurate decimal: 4.12, 5.12, 6.12, 7.12,
+*//

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html>
+
+  <title>LaunchPadLab | Javascript Lab #1</title>
+  <link rel="stylesheet" type="text/css" href="style/calculator.css">
+    
+  <body>
+    
+    <div class="center">
+      <h1>My Calculator</h1>
+      <div id="display" class="display"></div>
+      <ul>
+          <li>7</li>
+          <li>8</li>
+          <li>9</li>
+          <li>C</li>
+          <li>AC</li>
+          <li>4</li>
+          <li>5</li>
+          <li>6</li>
+          <li>x</li>
+          <li>/</li>
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>+</li>
+          <li>-</li>
+          <li>0</li>
+          <li>.</li>
+          <li>=</li>
+      </ul>
+    
+    </div>
+    
+  
+    <!-- To use the jQuery Javascript library, we need to include the source file as show below -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    
+    
+    
+    <!--  Remember when you want to use Javascript, make sure to include the script tag (as in line 45) -->
+        
+    <script>
+    
+      // We are defining 'global' variables here to keep track of the current_value of what the user typed in and the previous value of what the user typed in for the calculator
+    
+      var current_value = '';
+      var old_value = 0;
+      
+      //var operators = ["+", "-", "/", "*"];
+      
+      
+      //We are using jQuery with the $ sign to find all the li elements on the page and attach a "click" handler to each one. Now when the user clicks on an li element, the code inside the function() block will execute
+      
+      $('li').click(
+        
+        function(){
+          
+          //Here we are grabbing the value of li element that the user clicked on
+          var value = $(this).text();
+          
+          //Now that we have the value, we need to react differently depending on what was clicked. We use the if...else conditionals to do this
+          
+          if ( value == "+" ){
+            
+            //Clear display, store and add the first value typed in, reset current_value
+            
+            $('#display').text('');
+            
+            //We are using parseInt here to convert the string input into an integer
+            old_value = parseInt(old_value) + parseInt(current_value);
+            
+            current_value = '';
+            
+          }
+          else if ( value == "=" ) {
+            
+            //Take the old_value and the current_value and add them together
+            //Display the value in the display box
+
+            var total = parseInt(current_value) + parseInt(old_value);
+            
+            $('#display').text(total);
+            
+          }
+          else {
+            
+            //If the user clicks on a number, we need to keep track of it. We use the current_value to store this. Then we display the current_value in the element whose id is display
+            
+            current_value = current_value + value;
+          
+            $('#display').text(current_value);
+          }
+          
+        }
+      );
+      
+    </script>
+    
+  </body>
+
+</html>
