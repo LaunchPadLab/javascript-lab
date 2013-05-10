@@ -138,3 +138,15 @@ div.to_dos {
 	margin: 50px auto;
 	width: 300px;
 }
+
+div.error {
+	padding: 10px;
+}
+
+p.error_message {
+	color: red;
+}
+
+.hidden {
+	display: none;
+}

@@ -4,17 +4,20 @@
 
   <title>LaunchPadLab | Javascript Lab #2</title>
   <link rel="stylesheet" type="text/css" href="style.css">
+  
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
     
   <body>
     
     <div class="header">
       <h1><img src="beer.png" class="beer" />Beer</h1>
-      
     </div>
 
     <div class="signLog">
 
       <h2 class="boxTitle">Sign Up</h2>
+      
+      <div class="error"></div>
   
       <form class="signupForm">
           <div class="placeholding-input">
@@ -38,12 +41,12 @@
           </div>
           
           <div class="placeholding-input">
-            <input type="text" name="birthday" placeholder="Birthday" class="field" />
+            <input id="birthday" type="text" name="birthday" placeholder="Birthday" class="field" />
             <!-- <span class="placeholder">Birthday</span> -->
           </div>
           
-          <div class="placeholding-input">
-            <input type="text" name="beer" placeholder="Favorite Beer" class="field" />
+          <div class="placeholding-input hidden beer_container">
+            <input id="beer" type="text" name="beer" placeholder="Favorite Beer" class="field" />
             <!-- <span class="placeholder">Favorite Beer</span> -->
           </div>
           
@@ -64,6 +67,159 @@
         <li>Auto-complete favorite beer list</li>
       </ol>
     </div>
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    
+    <script>
+    
+      //Show and hide placeholder on password input field
+
+      $('.placeholder').click(function(){
+        
+        var input = $(this).prev();
+        
+        $(this).hide();
+        input.focus();
+        
+      });
+      
+      //Handle when a focusout event on the password fields
+      
+      $('input[type="password"]').focusout(function(){
+        
+        var value = $(this).val();
+        
+        if ( value == ""){
+          //Show the placeholder span
+          $(this).next().show();
+        }
+        
+      });
+      
+      //Show and hide the placeholder depending on whether or not anything has been entered into field
+      
+      $('input[type="password"]').keydown(function(){
+        
+        var value = $(this).val();
+        var span = $(this).next();
+        
+        if ( value == ""){
+          span.show();
+        } else {
+          span.hide();
+        }
+      })
+      
+      // Commented out this coe to be replaced by other code
+      
+      // $('form').submit(function(e){
+      //   
+      //   //Check the value of the input fields
+      //   //If a value is empty, display error message
+      //   
+      //   $('div.error').html('');
+      //   
+      //   var params = $(this).serialize();
+      //   var inputs = $(this).find('input');
+      //   
+      //   for (var i = 0; i < inputs.length; i++){
+      //     
+      //     //Check the value of the input & display
+      //     
+      //     if ( $(inputs[i]).val() == ""){
+      //       
+      //       $('div.error').append('<p>' + $(inputs[i]).attr('name') + ' cannot be blank.</p>');
+      //       
+      //     }
+      //     
+      //   }
+      //   
+      //   $('div.error').children('p').addClass('error_message');
+      //   
+      //   e.preventDefault();
+      //   
+      //   
+      //   
+      // });
+      
+      // $('#birthday').datepicker({ 
+      //   dateFormat: "yy-mm-dd",
+      //   changeMonth: true,
+      //   changeYear: true,
+      //   yearRange: "1900:2013" 
+      // });
+      
+      var availableTags = [
+        "Lagunitas",
+        "Bud Light Platinum",
+        "Pacifico",
+        "Corona",
+        "Guinness",
+        "Shiner"
+      ];
+      
+      $('#beer').autocomplete({
+        source: availableTags
+      });
+      
+      $('form.signupForm').on('submit', function(e){
+        
+        var params = $(this).serialize();
+        var error_container = $('div.error');
+        
+        // Need to check last one, but not this time
+        if ( params.indexOf('=&') > -1 ){
+          
+          error_container.text('');
+          
+          var inputs = $(this).find('input');
+          
+          inputs.each(function(idx, elem){
+             if( (idx != inputs.length - 2) && $(elem).val().length == 0){
+               //Display error message
+               var field = capitalizeFirstLetter($(elem).attr("name"));
+               error_container.append('<p>' + field + ' cannot be blank.</p>');
+             }
+          });
+          
+          error_container.children('p').addClass('error_message');
+          
+          e.preventDefault();
+        }
+        
+        
+      });
+      
+      $('#birthday').datepicker({
+        dateFormat: "yy-mm-dd",
+        maxDate: 0,
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "1900:"+ (new Date()).getFullYear(),
+        onSelect: function(){
+          var date = $(this).datepicker( "getDate" );
+          var today = new Date();
+          var legal_age = {};
+          legal_age.year = today.getFullYear() - 21;
+          legal_age.month = today.getMonth();
+          legal_age.day = today.getDate();
+          
+          var legal_date = new Date(legal_age.year, legal_age.month, legal_age.day);
+          
+          if ( date < legal_date ){
+            $('div.beer_container').slideDown();
+            $('#beer').focus();
+          }
+          
+        }
+      });
+      
+      function capitalizeFirstLetter(string) {
+          return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+                            
+  </script>
   
   </body>
   
