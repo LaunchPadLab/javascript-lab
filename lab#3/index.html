@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<title>LPL | Twitter</title>
+	<style>
+  	body { width: 600px; margin: auto; }
+  	ul { list-style: none; }
+  	li { padding: 1em; border-bottom: 1px solid #ccc; }
+  	img { float: left; padding-right: 1em; }
+  	a { text-decoration: none; color: #333; }
+  	
+  	.center {
+  	  text-align: center;
+  	}
+  	
+  	.container {
+  	  padding: 20px;
+  	}
+  	
+	</style>
+</head>
+<body>
+  
+  <div class="container center">
+    <h1>Let's Search Twitter</h1>
+    <form>
+      <input id="search_param" type="text" name="q" placeholder="Search Twitter..." />
+      <input id="submit" type="submit">
+    </form>
+  </div>
+  
+  <ul id="tweets">
+  </ul>
+  
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script> -->
+
+<script>
+
+// (function() {
+// 
+//   $('form').on('submit', function(e){
+//     
+//     var q = $('#search_param').val();
+//     
+//     if ( q === ""){
+//       alert('Search Cannot be blank!');
+//     }
+//     else {
+//       var full_url = 'http://search.twitter.com/search.json?q=' + q + '&callback=?';
+//       
+//       $('#tweets').html('<li class=center>Loading Tweets from your Search</li>');
+//       
+//       $.getJSON( full_url, function( data ) {
+//         var tweets = $.map( data.results, function( tweet ) {
+//           return {
+//             author: tweet.from_user,
+//             tweet: tweet.text,
+//             thumb: tweet.profile_image_url,
+//             url: 'http://twitter.com/' + tweet.from_user + '/status/' + tweet.id_str
+//           };
+//         });
+//         
+//         var html = "";
+//         
+//         $.each(tweets, function(){
+//           html += "<li><img src=" + this.thumb + " alt=" + this.author + ">";
+//           html += "<p><a href=" + this.url + ">" + this.tweet + "</a></p></li>";
+//         });
+// 
+//         $('#tweets').html(html);
+//         
+//       });
+//     }
+//     
+//     e.preventDefault();
+//     
+//   })
+// 
+// })();
+
+</script>
+
+
+</body>
+</html>
