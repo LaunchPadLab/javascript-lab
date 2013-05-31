@@ -30,12 +30,66 @@
     </form>
   </div>
   
-  <ul id="tweets">
-  </ul>
+  <ul id="tweets"></ul>
   
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
 
 <script>
+
+  $('form').submit(function(e){
+    
+    var value = $('#search_param').val();
+    
+    if ( value == ''){
+      alert('You cannot do that');
+    }
+    else {
+      
+      var full_url = 'http://search.twitter.com/search.json?q=' + value + '&callback=?';
+      
+      $.ajax(
+        {
+          url: full_url,
+          type: 'get',
+          dataType: 'json',
+          success: function(data){
+            
+            var results = data.results;
+            var html = '';
+      
+            $.each(results, function(){
+              
+              html += "<li><img src=" + this.profile_image_url + " />";
+              html += "<p><a href=http://twitter.com/" + this.from_user + '/status/' + this.id_str + ">" + this.text + "</a></p>"             
+              html += "</li>";
+                            
+            });
+            
+            $('#tweets').html(html);
+            
+          }
+        }
+      );
+    }
+    
+    e.preventDefault();
+    
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // (function() {
 // 
@@ -47,7 +101,7 @@
 //       alert('Search Cannot be blank!');
 //     }
 //     else {
-//       var full_url = 'http://search.twitter.com/search.json?q=' + q + '&callback=?';
+//       
 //       
 //       $('#tweets').html('<li class=center>Loading Tweets from your Search</li>');
 //       
